@@ -8,7 +8,8 @@ import javax.swing.SwingUtilities;
 public class JuliaFractal {
 	// Just copied all this over, I'm sure there's some garbage I won't use
 	// Width and Height of our Window
-	private static final int W = 500;
+	// Need a 4:3 ratio?
+	private static final int W = 667;
 	private static final int H = 500;
 	// Zoom factor
 	private static final int ZOOM = 1;

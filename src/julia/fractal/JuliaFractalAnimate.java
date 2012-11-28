@@ -11,7 +11,8 @@ import javax.swing.SwingUtilities;
 public class JuliaFractalAnimate extends JFrame{
 
 	private static final long serialVersionUID = 1L;
-	private static final int W = 500;
+	// Needs a 4:3 ratio
+	private static final int W = 667;
 	private static final int H = 500;
 	private static int Z = 1; // Zoom factor
 	private static double xShift = 0;
