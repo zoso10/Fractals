@@ -1,6 +1,8 @@
 package mandlebrot.fractal;
 
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
@@ -15,6 +17,8 @@ public class Mandlebrot extends JFrame{
 	private static int Z = 1;
 	private double pRe, pIm; // Real and Imaginary part of the pixel
 	private double newRe, newIm, oldRe, oldIm;
+	private double xShift = 0;
+	private double yShift = 0;
 	private static int maxIt = 300;
 	private BufferedImage image;
 	
@@ -27,16 +31,29 @@ public class Mandlebrot extends JFrame{
 	}
 	
 	private void init(){
+		image = new BufferedImage(W, H, BufferedImage.TYPE_INT_RGB);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(W, H);
-		image = new BufferedImage(W, H, BufferedImage.TYPE_INT_RGB);
+		this.addKeyListener(new KeyAdapter(){
+			@Override
+			public void keyPressed(KeyEvent e){
+				if(e.getKeyChar() == '+') ++Z;
+				if(e.getKeyChar() == '-' && Z > 1) --Z;
+				if(e.getKeyCode() == KeyEvent.VK_LEFT) xShift -= .5 * 1/Z;
+				if(e.getKeyCode() == KeyEvent.VK_RIGHT) xShift += .5 * 1/Z;
+				if(e.getKeyCode() == KeyEvent.VK_DOWN) yShift += .5 * 1/Z;
+				if(e.getKeyCode() == KeyEvent.VK_UP) yShift -= .5 * 1/Z;
+				updateImage();
+				repaint();
+			}
+		});
 	}
 	
 	private void updateImage(){
 		for(int x = 0; x < W; ++x){
 			for(int y = 0; y < H; ++y){
-				pRe = 1.5 * (x-W/2) / (0.5 * Z * W) - 0.5;
-				pIm = (y-H/2) / (0.5 * Z * H);
+				pRe = 1.5 * (x-W/2) / (0.5 * Z * W) - 0.5 + xShift;
+				pIm = (y-H/2) / (0.5 * Z * H) + yShift;
 				newRe = newIm = oldRe = oldIm = 0;
 				
 				int i;
