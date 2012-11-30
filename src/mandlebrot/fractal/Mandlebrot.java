@@ -67,7 +67,13 @@ public class Mandlebrot extends JFrame{
 					if((newRe * newRe + newIm * newIm) > 4) break;
 				}
 				
-				Color c = new Color(i%256, i%256, i%256);
+				//Color c = new Color(i%256, i%256, i%256);
+				Color c;
+				int n = 765*i/maxIt;
+				if(n < 254) c = new Color(n%256, 0, 0);
+				else if(n < 509) c = new Color(0, n%255, 0);
+				else c = new Color(0, 0, n%255);
+				
 				image.setRGB(x, y, c.getRGB());
 			}
 		}

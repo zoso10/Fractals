@@ -71,8 +71,17 @@ public class JuliaFractalAnimate extends JFrame{
 				
 				// I still can't get this to give me pretty colors >:|
 				//Color c = new Color(i%256, i%256, 255 * ((i < maxIt) ? 1 : 0));
-				Color c = new Color(i%256, i%256, i%256);
+				//Color c = new Color(i%256, i%256, i%256);
 				//Color c = Color.getHSBColor(i*6, i%255, i%255);
+				
+				// I am so determined...
+				int n = 765*i/maxIt;
+				Color c;
+				if(n < 254) c = new Color(n%256,0,0);
+				else if (n < 509) c = new Color(0, n%256, 0);
+				else c = new Color(0, 0, n%256);
+				
+				
 				image.setRGB(x, y, c.getRGB());
 			}
 		}
